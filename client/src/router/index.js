@@ -1,23 +1,21 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import LoginPage from '@/views/private/LoginPage'
-import ClientPage from '@/views/public/ClientPage'
 
-const routers = [
+const routes = [
   {
     path: '/',
-    name: 'clientPage',
-    component: ClientPage
+    name: 'HomePage',
+    component: () => import('../views/public/HomePage.vue')
   },
   {
     path: '/admin',
-    name: 'loginPage',
-    component: LoginPage
-  }
+    name: 'LoginPage',
+    component: () => import('../views/admin/LoginPage.vue')
+  },
 ]
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routers
+  routes
 })
 
 export default router
