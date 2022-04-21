@@ -1,15 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\News;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
   public function index()
   {
-    $getData = News::latest()->get();
+    $getData = News::with('category_id')->get();
     return response()->json([
       'data' => $getData,
       'msg' => 'successfully'
@@ -23,12 +25,15 @@ class NewsController extends Controller
         'category_id' => ['required'],
         'title' => ['required'],
         'content' => ['required'],
-        'poster' => ['required']
+        'poster' => ['image', 'file']
       ]);
 
-      $cleanTag = array_map(function($sigleData) {
-        return strip_tags($sigleData);
-      }, $cleanData);
+
+      if ($request->file('poster'))
+        $cleanData['poster'] = $request->file('poster')
+          ->store('news-image');
+
+      $cleanTag = $this->cleanTag($cleanData);
 
       News::create($cleanTag);
       return response()->json([
@@ -38,7 +43,7 @@ class NewsController extends Controller
       return response()->json([
         'msg' => 'insert failed'
       ], 401);
-    } 
+    }
   }
 
   public function show($id)
@@ -58,14 +63,18 @@ class NewsController extends Controller
         'category_id' => ['required'],
         'title' => ['required'],
         'content' => ['required'],
-        'poster' => ['required']
+        'poster' => ['image', 'file']
       ]);
 
-      $cleanTag = array_map(function($sigleData) {
-        return strip_tags($sigleData);
-      }, $cleanData);
+      if ($request->file('poster')) {
+        Storage::delete($by->poster);
+        $cleanData['poster'] = $request->file('poster')
+          ->store('news-image');
+      }
 
-      $by->update($cleanData);
+      $cleanTag = $this->cleanTag($cleanData);
+      $by->update($cleanTag);
+
       return response()->json([
         'msg' => 'updated successfully'
       ], 200);
@@ -79,7 +88,10 @@ class NewsController extends Controller
   public function destroy($id)
   {
     try {
-      News::findOrFail($id)->delete();
+      $current = News::findOrFail($id);
+      Storage::delete($current->poster);
+      $current->delete();
+
       return response()->json([
         'msg' => 'deleted successfully'
       ], 200);

@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
       ]);
 
       News::create([
-        'category_id' => random_int(1, 4),
+        'news_category_id' => random_int(1, 4),
         'title' => 'news-00' . random_int(1, 99),
         'content' => 'it is a long established fact that a reader will be distracted by the readable of a   page when looking at its layout',
         'poster' => 'belum ada'

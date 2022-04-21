@@ -7,9 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class NewsCategory extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $fillable = [
-      'title', 'description'
-    ];
+  protected $fillable = [
+    'title', 'description'
+  ];
+
+  public function news() {
+    return $this->hasMany(News::class, 'id');
+  }
+
+  public function delete()
+  {
+  }
 }
