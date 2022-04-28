@@ -58,13 +58,24 @@ export default {
     }
   },
   methods: {
-    submitHandler() {
+    async submitHandler() {
       axios.post('http://127.0.0.1:8000/api/v1/login', {
-        email: this.email,
-        password: this.password
+        email: this.form.email,
+        password: this.form.password
       }).then(res => {
-        localStorage.setItem('access_token', res.data)
+        console.log(res.data)
+        localStorage.setItem('access_token', res.data.access_token)
+        localStorage.setItem('refresh_token', res.data.refresh_token)
         this.$router.push({ path: '/admin/dashboard' })
+      }).catch((e) => {
+        console.log(e)
+        this.$swal({
+          icon: 'error',
+          title: 'Oops..',
+          text: 'Failed to Login',
+          showConfirmButton: false,
+          timer: 2000
+        })
       })
     }
   }
@@ -74,6 +85,7 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Belleza&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 
 #LoginPage .row {
   margin: 0; 
@@ -116,7 +128,7 @@ export default {
 
 #LoginPage form h1 {
   text-align: start;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: bolder;
 }
 

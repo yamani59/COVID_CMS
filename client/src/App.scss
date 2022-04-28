@@ -1,0 +1,11 @@
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+@each $key, $value in $grays {
+  .bg-gray-#{$key}{
+        background-color: $value !important;
+  }
+
+  .text-gray-#{$key}{
+    color: $value !important;
+  }
+}

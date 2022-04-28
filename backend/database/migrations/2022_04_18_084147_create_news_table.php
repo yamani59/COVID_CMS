@@ -19,7 +19,8 @@ return new class extends Migration
         ->constrained()
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
-      $table->string('title');
+      $table->string('title')
+        ->unique();
       $table->string('content');
       $table->string('poster');
       $table->timestamps();

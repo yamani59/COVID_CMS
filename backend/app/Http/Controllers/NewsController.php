@@ -22,12 +22,11 @@ class NewsController extends Controller
   {
     try {
       $cleanData = $request->validate([
-        'category_id' => ['required'],
+        'news_category_id' => ['required'],
         'title' => ['required'],
         'content' => ['required'],
         'poster' => ['image', 'file']
       ]);
-
 
       if ($request->file('poster'))
         $cleanData['poster'] = $request->file('poster')
@@ -41,7 +40,7 @@ class NewsController extends Controller
       ], 200);
     } catch (Exception $e) {
       return response()->json([
-        'msg' => 'insert failed'
+        'msg' => $e->getMessage()
       ], 401);
     }
   }
@@ -60,7 +59,7 @@ class NewsController extends Controller
     try {
       $by = News::findOrFail($id);
       $cleanData = $request->validate([
-        'category_id' => ['required'],
+        'news_category_id' => ['required'],
         'title' => ['required'],
         'content' => ['required'],
         'poster' => ['image', 'file']
@@ -80,7 +79,7 @@ class NewsController extends Controller
       ], 200);
     } catch (Exception $e) {
       return response()->json([
-        'msg' => 'updated failed'
+        'msg' => $e->getMessage()
       ], 401);
     }
   }

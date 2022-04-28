@@ -10,6 +10,21 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\SuperAdmin;
 
 Route::prefix('v1')->group(function () {
+
+  Route::get('/test', function () {
+    return response()->json(['msg' => "testing api"]);
+  });
+
+  Route::get('/testv1', function () {
+    dd(
+      app()->handle(
+        Request::create(
+          'http://127.0.0.1:8000/api/v1/test',
+        )
+      )
+    );
+  });
+
   Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'login');
     Route::post('/logout', 'logout');
