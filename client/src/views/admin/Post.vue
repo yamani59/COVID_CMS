@@ -55,7 +55,15 @@ export default {
   methods: {
     deleteNews(e) {
       axios.delete('http://127.0.0.1:8000/api/v1/news/' + e.toString())
-        .then(() => {
+        .then(async () => {
+          const news = 'http://127.0.0.1:8000/api/v1/news'
+          const categories = 'http://127.0.0.1:8000/api/v1/category'
+
+          const api = await this.getApi([news, categories])
+          this.getData = api[0].data.data
+          this.configs[3].select = api[1].data.data
+          this.edit.dataEdit = null
+          
           this.$swal({
             icon: 'success',
             title: 'Horeee...',

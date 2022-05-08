@@ -1,10 +1,10 @@
 <template>
   <div id="Dashboard">
     <div class="home row">
-      <div class="col-1 bg-gray-300">
+      <div class="col-1 ">
         <SideNavbar />
       </div>
-      <div class="col bg-gray-300 ">
+      <div class="col bg-white">
         <RouterView />
       </div>
     </div>

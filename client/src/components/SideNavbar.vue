@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar navbar-expand m-0 d-flex flex-column align-items-center bg-light d-flex justify-content-center align-items-center">
+  <div class="navbar navbar-expand m-0 d-flex flex-column align-items-center bg-gray-200 d-flex justify-content-center align-items-center">
     <link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <div class="nav-link">
       <RouterLink to="/admin/dashboard">

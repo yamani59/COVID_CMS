@@ -1,10 +1,10 @@
 <template>
-  <div id="TableNews" class="border border-dark p-4 rounded shadow bg-light">
-    <h2 class="table-title text-start">News</h2>
-    <table class="table p-2">
+  <div id="TableNews" class="border rounded">
+    <h2 class="table-title bg-gray-200 text-dark p-2 align-middle text-start">Slide</h2>
+    <table class="table">
       <thead class="">
-        <tr class="bg-dark">
-          <th v-for="head of heads" :key="head" class="text-light"> {{ head }}</th>
+        <tr class="">
+          <th v-for="head of heads" :key="head" class=""> {{ head }}</th>
         </tr>
       </thead>
       <tbody>
@@ -27,12 +27,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
-const token = window ?? localStorage.getItem('access_token')
-
-axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-
 export default {
   name: 'TableNews',
   emits: ['handleDelete', 'handleEdit'],
